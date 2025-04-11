@@ -31,12 +31,12 @@ export default function TimerChallenge({title, targetTime}) {
 
   return (
     <>
-     <ResultModal 
-      ref={dialog} 
-      targetTime={targetTime} 
-      remainingTime={timeRemaining} 
-      onReset={handleReset}
-    />
+      <ResultModal 
+        ref={dialog} 
+        targetTime={targetTime} 
+        remainingTime={timeRemaining} 
+        onReset={handleReset}
+      />
       <section className="challenge">
         <h2>{title}</h2>
         <p className="challenge-time">
