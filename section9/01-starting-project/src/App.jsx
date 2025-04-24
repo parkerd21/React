@@ -7,38 +7,36 @@ import NoProjectSelected from "./components/NoProjectSelected";
 
 function App() {
 
-  const [projects, setProjects] = useState([])
-  const [showNewProject, setShowNewProject] = useState(false)
-  const [noProjectSelected, setNoProjectSelected] = useState(true)
-
+  const [projectsState, setProjectsState] = useState({
+    selectedProjectId: undefined,
+    projects: []
+  })
+ 
   function onAddProjectClick() {
-      setNoProjectSelected(false)
-      setShowNewProject(prevState => !prevState)
+      setProjectsState(prevState => {
+        return {...prevState, selectedProjectId: null}
+      })
   }
 
   function onProjectSave(project) {
-    setProjects([...projects, project])
+    
+  }
+
+  let content;
+  if (projectsState.selectedProjectId === null) {
+    content = <NewProject onSave={onProjectSave}/>
+  } else if (projectsState.selectedProjectId === undefined) {
+    content = <NoProjectSelected onAddProjectClick={onAddProjectClick}/>
   }
 
   return (
     <main className="h-screen my-8 flex gap-8">
       <Sidebar 
-        projects={projects}
+        // projects={projects}
         onAddProjectClick={onAddProjectClick}
       />
 
-      {noProjectSelected && 
-        <NoProjectSelected onAddProjectClick={onAddProjectClick}/>
-      }
-        
-
-      {showNewProject && <NewProject onSave={onProjectSave}/>}
-
-      {/* <Project
-        title={'Learning React'}
-      >
-
-      </Project> */}
+      {content}
     </main>
   );
 }
