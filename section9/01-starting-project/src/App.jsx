@@ -5,33 +5,47 @@ import NewProject from "./components/NewProject";
 import NoProjectSelected from "./components/NoProjectSelected";
 
 
-function App() {
 
+function App() {
   const [projectsState, setProjectsState] = useState({
     selectedProjectId: undefined,
     projects: []
   })
- 
+
   function onAddProjectClick() {
-      setProjectsState(prevState => {
-        return {...prevState, selectedProjectId: null}
-      })
+    setProjectsState(prevState => {
+      return { ...prevState, selectedProjectId: null }
+    })
   }
 
-  function onProjectSave(project) {
-    
+  function handleAddProject(projectData) {
+    setProjectsState(prevState => {
+      const newProject = {
+        ...projectData,
+        id: Math.random()
+      };
+
+      return {
+        ...prevState,
+        projects: [...prevState.projects, newProject]
+      };
+    });
   }
+
+  console.log(projectsState);
 
   let content;
   if (projectsState.selectedProjectId === null) {
-    content = <NewProject onSave={onProjectSave}/>
+    content = <NewProject onSave={handleAddProject} />
   } else if (projectsState.selectedProjectId === undefined) {
-    content = <NoProjectSelected onAddProjectClick={onAddProjectClick}/>
+    content = <NoProjectSelected onAddProjectClick={onAddProjectClick} />
+  } else {
+    content = <Project title={'test'} />
   }
 
   return (
     <main className="h-screen my-8 flex gap-8">
-      <Sidebar 
+      <Sidebar
         // projects={projects}
         onAddProjectClick={onAddProjectClick}
       />
