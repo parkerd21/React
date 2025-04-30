@@ -27,12 +27,22 @@ function App() {
 
       return {
         ...prevState,
-        projects: [...prevState.projects, newProject]
+        projects: [...prevState.projects, newProject],
+        selectedProjectId: undefined
       };
     });
   }
 
-  console.log(projectsState);
+  function handleProjectClick(id)
+  {
+    setProjectsState(prevState => {
+      return {
+        ...prevState,
+        selectedProjectId: id
+      }
+    })
+  }
+
 
   let content;
   if (projectsState.selectedProjectId === null) {
@@ -40,14 +50,16 @@ function App() {
   } else if (projectsState.selectedProjectId === undefined) {
     content = <NoProjectSelected onAddProjectClick={onAddProjectClick} />
   } else {
-    content = <Project title={'test'} />
+    const project = projectsState.projects.find((p) => p.id === projectsState.selectedProjectId)
+    content = <Project project={project} />
   }
 
   return (
     <main className="h-screen my-8 flex gap-8">
       <Sidebar
-        // projects={projects}
+        projects={projectsState.projects}
         onAddProjectClick={onAddProjectClick}
+        onProjectClick={handleProjectClick}
       />
 
       {content}
