@@ -33,8 +33,7 @@ function App() {
     });
   }
 
-  function handleProjectClick(id)
-  {
+  function handleProjectClick(id) {
     setProjectsState(prevState => {
       return {
         ...prevState,
@@ -43,10 +42,18 @@ function App() {
     })
   }
 
+  function handleCancelClick() {
+    setProjectsState(prevState => {
+      return {
+        ...prevState,
+        selectedProjectId: undefined 
+      }
+    })
+  }
 
   let content;
   if (projectsState.selectedProjectId === null) {
-    content = <NewProject onSave={handleSaveProject} />
+    content = <NewProject onSave={handleSaveProject} onCancel={handleCancelClick} />
   } else if (projectsState.selectedProjectId === undefined) {
     content = <NoProjectSelected onAddProjectClick={onAddProjectClick} />
   } else {
