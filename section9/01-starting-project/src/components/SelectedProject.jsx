@@ -1,11 +1,4 @@
-import { useRef } from "react";
-import Input from "./Input";
-
 export default function SelectedProject({ project }) {
-  const titleRef = useRef(null);
-  const descriptionRef = useRef(null);
-  const dueDateRef = useRef(null);
-
   const formattedDate = new Date(project.dueDate).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'short',
@@ -29,11 +22,6 @@ export default function SelectedProject({ project }) {
         <p className="text-stone-600 whitespace-pre-wrap">{project.description}</p>
 
       </header>
-      {/* <div>
-        <Input value = {project.title} type="text" label="Title" ref={titleRef} />
-        <Input value = {project.description} label="Description" textarea={true} ref={descriptionRef} />
-        <Input value = {project.dueDate} label="Due Date" ref={dueDateRef} type={'date'} />
-      </div> */}
     </div>
   )
 }
