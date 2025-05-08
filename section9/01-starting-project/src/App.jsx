@@ -9,7 +9,8 @@ import NoProjectSelected from "./components/NoProjectSelected";
 function App() {
   const [projectsState, setProjectsState] = useState({
     selectedProjectId: undefined,
-    projects: []
+    projects: [],
+    tasks: []
   })
 
   function onAddProjectClick() {
@@ -46,7 +47,7 @@ function App() {
     setProjectsState(prevState => {
       return {
         ...prevState,
-        selectedProjectId: undefined 
+        selectedProjectId: undefined
       }
     })
   }
@@ -61,14 +62,42 @@ function App() {
     })
   }
 
+  function handleAddTask(text) {
+    setProjectsState(prevState => {
+      const taskId = Math.random();
+      const newTask = {
+        text: text,
+        projectId: prevState.selectedProjectId,
+        id: taskId
+      };
+
+      return {
+        ...prevState,
+        tasks: [...prevState.tasks, newTask]
+      };
+    });
+  }
+
+  function handleDeleteTask() {
+
+  }
+
   const project = projectsState.projects.find((p) => p.id === projectsState.selectedProjectId)
-  let content = <SelectedProject project={project} onProjectDelete={handleProjectDelete} />;
+  let content = (
+    <SelectedProject
+      project={project}
+      onProjectDelete={handleProjectDelete}
+      onAddTask={handleAddTask}
+      onDeleteTask={handleDeleteTask}
+      tasks={projectsState.tasks}
+    />
+  );
 
   if (projectsState.selectedProjectId === null) {
     content = <NewProject onSave={handleSaveProject} onCancel={handleCancelClick} />
   } else if (projectsState.selectedProjectId === undefined) {
     content = <NoProjectSelected onAddProjectClick={onAddProjectClick} />
-  } 
+  }
 
   return (
     <main className="h-screen my-8 flex gap-8">
