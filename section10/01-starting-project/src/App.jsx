@@ -68,7 +68,7 @@ function App() {
   }
 
   return (
-    <CartContext.Provider> {/* .Provider is needed in older versions of react. In new versions you can leave it out. */}
+    <CartContext.Provider value={{ items:[] }}> {/* .Provider is needed in older versions of react. In new versions you can leave it out. */}
       
       <Header
         cart={shoppingCart}
