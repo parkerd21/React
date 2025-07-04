@@ -24,4 +24,7 @@ section10/01-starting-project/package-lock.json
 section11/01-starting-project/package-lock.json
 section12/01-starting-project/package-lock.json
 section13/01-starting-project/package-lock.json
+section14/01-starting-project/package-lock.json
+section14/01-starting-project/node_modules
+section14/01-starting-project/.DS_Store
 React.code-workspace
