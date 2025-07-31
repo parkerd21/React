@@ -1,4 +1,4 @@
-import { use } from "react";
+import { use, useActionState } from "react";
 import { OpinionsContext } from "../store/opinions-context";
 
 export function Opinion({ opinion: { id, title, body, userName, votes } }) {
@@ -8,9 +8,14 @@ export function Opinion({ opinion: { id, title, body, userName, votes } }) {
     await upvoteOpinion(id);
   }
 
-  async function donvoteAction() {
+  async function downvoteAction() {
     await downvoteOpinion(id);
   }
+
+  const [upvoteFormState, upvoteFormAction, upvotePending] =
+    useActionState(upvoteAction);
+  const [downvoteFormState, downvoteFormAction, downvotePending] =
+    useActionState(downvoteAction);
 
   return (
     <article>
@@ -20,7 +25,10 @@ export function Opinion({ opinion: { id, title, body, userName, votes } }) {
       </header>
       <p>{body}</p>
       <form className="votes">
-        <button formAction={upvoteAction}>
+        <button
+          formAction={upvoteFormAction}
+          disabled={upvotePending || downvotePending}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -40,7 +48,10 @@ export function Opinion({ opinion: { id, title, body, userName, votes } }) {
 
         <span>{votes}</span>
 
-        <button formAction={donvoteAction}>
+        <button
+          formAction={downvoteFormAction}
+          disabled={upvotePending || downvotePending}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
