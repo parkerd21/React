@@ -1,4 +1,4 @@
-import { createContext, useState, useReducer } from "react";
+import { createContext, useReducer } from "react";
 
 const CartContext = createContext({
   items: [],
@@ -36,7 +36,25 @@ function cartReducer(state, action) {
   }
 
   if (action.type === "REMOVE_ITEM") {
-    return state;
+    let updatedItems = [...state.items];
+    const indexOfItemToRemove = updatedItems.findIndex(
+      (item) => (item.id = action.payload)
+    );
+    let itemToRemove = updatedItems[indexOfItemToRemove];
+    if (itemToRemove.quantity > 1) {
+      itemToRemove = {
+        ...itemToRemove,
+        quantity: itemToRemove.quantity - 1,
+      };
+      updatedItems[indexOfItemToRemove] = itemToRemove;
+    } else {
+      updatedItems.splice(indexOfItemToRemove, 1);
+    }
+
+    return {
+      ...state,
+      items: updatedItems,
+    };
   }
 
   return state;

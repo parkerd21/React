@@ -5,7 +5,9 @@ import CartContext from "../store/cart-context";
 
 export default function Header() {
   const {items} = useContext(CartContext);
-  const cartQuantity = items.length;
+  const cartQuantity = items.reduce((totalNumberOfItems, item) => {
+    return totalNumberOfItems + item.quantity;
+  }, 0);
 
   return (
     <header id="main-header">

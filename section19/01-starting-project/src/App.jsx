@@ -5,8 +5,8 @@ import { CartContextProvider } from "./store/cart-context.jsx";
 function App() {
   return (
     <>
-      <Header />
       <CartContextProvider>
+        <Header />
         <Meals />
       </CartContextProvider>
     </>
