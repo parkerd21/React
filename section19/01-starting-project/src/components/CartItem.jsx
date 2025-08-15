@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { currencyFormatter } from "../util/formatting";
 import CartContext from "../store/cart-context";
-export default function CartItem({ item, key }) {
+export default function CartItem({ item }) {
 
   const cartCtx = useContext(CartContext)
 
@@ -15,7 +15,7 @@ export default function CartItem({ item, key }) {
 
   
   return (
-    <li key={key} className="cart-item">
+    <li className="cart-item">
       <p>
         {item.name} - {item.quantity} x {currencyFormatter.format(item.price)}
       </p>
