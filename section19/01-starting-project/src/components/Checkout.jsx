@@ -19,15 +19,62 @@ export default function Checkout() {
     userProgressCtx.hideCheckout();
   }
 
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const customerData = Object.fromEntries(formData.entries());
+
+    fetch("http://localhost:3000/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        order: {
+          items: cartCtx.items,
+          customer: customerData,
+        },
+      }),
+    });
+
+    // async function submitOrder() {
+    //   try {
+    //     const response = await fetch("http://localhost:3000/orders", {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify({
+    //         order: {
+    //           items: cartCtx.items,
+    //           customer: customerData,
+    //         },
+    //       }),
+    //     });
+    //     if (!response.ok) {
+    //       throw new Error(`Response status: ${response.status}`);
+    //     }
+
+    //     const result = await response.json();
+    //     console.log(result);
+    //   } catch (error) {
+    //     console.error(error.message);
+    //   }
+    // }
+
+    // submitOrder();
+  }
+
   return (
     <Modal open={userProgressCtx.progress === "checkout"}>
-      <form>
+      <form onSubmit={handleSubmit}>
         <h2>Checkout</h2>
         <p>Total Amount: {currencyFormatter.format(cartTotal)}</p>
 
-        <Input label="Full Name" type="text" id="full-name" />
+        <Input label="Full Name" type="text" id="name" />
         <Input label="E-Mail Address" id="email" type="email" />
-        <Input label="Stree" type="text" id="stree" />
+        <Input label="Street" type="text" id="street" />
         <div className="control-row">
           <Input label="Postal Code" type="text" id="postal-code" />
           <Input label="City" type="text" id="city" />
@@ -37,7 +84,7 @@ export default function Checkout() {
           <Button type="button" textOnly onClick={handleClose}>
             Close
           </Button>
-          <Button>Submit Order</Button>
+          <Button type="submit">Submit Order</Button>
         </p>
       </form>
     </Modal>
