@@ -9,6 +9,9 @@ const uiSlice = createSlice({
     toggleCart(state) {
       state.showCart = !state.showCart;
     },
+    addItemToCart(state) {
+      
+    }
   },
 });
 export const uiActions = uiSlice.actions;
