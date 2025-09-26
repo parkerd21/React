@@ -42,4 +42,8 @@ section21/01-starting-project/node_modules
 section21/01-starting-project/package-lock.json
 section22/01-starting-project/package-lock.json
 section22/01-starting-project/node_modules
+section22/12-adv-starting-project/backend/node_modules
+section22/12-adv-starting-project/backend/package-lock.json
+section22/12-adv-starting-project/frontend/node_modules
+section22/12-adv-starting-project/frontend/package-lock.json
 React.code-workspace
