@@ -1,4 +1,4 @@
-import { Outlet, useNavigation, useLoaderData, useSubmit } from 'react-router-dom';
+import { Outlet, useLoaderData, useSubmit } from 'react-router-dom';
 import { useEffect } from 'react';
 
 import MainNavigation from '../components/MainNavigation';
